@@ -4,12 +4,25 @@ const Verb = require("../models/Verbs");
 
 /* GET home page. */
 
-router.post("/add-verb", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { verb, translation } = req.body;
     const mutations = await mutateVerb(verb, translation);
+    if (!mutations) {
+      res.status(406).json({ message: "Onregelmatig werkwoord" });
+      return;
+    }
     const newVerb = await Verb.create(mutations);
     res.status(200).json(newVerb);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const verbs = await Verb.find();
+    res.status(200).json(verbs);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -29,7 +42,7 @@ function mutateVerb(verb, translation) {
   } else if (endVerb === "ir") {
     mutated = "i";
     mutatedAccent = "í";
-  }
+  } else return false;
 
   mutations = {
     verb,

@@ -3,12 +3,19 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require("cors");
 
 const verbRouter = require("./routes/verbs");
 
 const mongoose = require("mongoose");
 
 var app = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"]
+  })
+);
 
 require("dotenv").config();
 
@@ -34,7 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api", verbRouter);
+app.use("/api/verb", verbRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
