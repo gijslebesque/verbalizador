@@ -10,11 +10,14 @@ function App() {
   return (
     <div className="App">
       <h1>Verblizador</h1>
-      <Switch>
-        <Route path="/">
-          <Index />
-        </Route>
-      </Switch>
+      <main>
+        <Switch>
+          <Route path="/">
+            <Index />
+          </Route>
+        </Switch>
+      </main>
+
       <Footer />
     </div>
   );

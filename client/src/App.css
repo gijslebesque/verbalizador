@@ -1,11 +1,23 @@
 .App {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
   text-align: center;
+  text-decoration: underline;
+  text-decoration-color: powderblue;
 }
 
 li.active {
   border-bottom: 1px solid powderblue;
+}
+
+tr:hover {
+  background-color: powderblue;
+}
+
+footer {
+  margin-top: auto;
 }

@@ -3,13 +3,14 @@ const Schema = mongoose.Schema;
 
 const verbSchema = new Schema({
   verb: { type: String, unique: true },
-  translation: String,
-  yo: String,
-  tu: String,
-  el: String,
-  nosotros: String,
-  vosotros: String,
-  ellos: String
+  translation: { type: String, required: true },
+  tense: { type: String, required: true },
+  yo: { type: String, required: true },
+  tu: { type: String, required: true },
+  el: { type: String, required: true },
+  nosotros: { type: String, required: true },
+  vosotros: { type: String, required: true },
+  ellos: { type: String, required: true }
 });
 
 const Verb = mongoose.model("Verb", verbSchema);
