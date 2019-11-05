@@ -1,20 +1,25 @@
 var express = require("express");
 var router = express.Router();
-const Verb = require("../models/Verbs");
+const PresentVerb = require("../models/PresentVerb");
+const PastVerb = require("../models/PastVerb");
 const presentTense = require("../utils/verbPresentTense");
-
+const pastTense = require("../utils/verbPastTense");
 /* GET home page. */
 
 router.post("/", async (req, res) => {
   try {
     const { verb, translation } = req.body;
-    const mutations = await presentTense(verb, translation);
-    if (!mutations) {
+    const present = await presentTense(verb, translation);
+    const past = await pastTense(verb, translation);
+
+    if (!present || !past) {
       res.status(406).json({ message: "Onregelmatig werkwoord" });
       return;
     }
-    const newVerb = await Verb.create(mutations);
-    res.status(200).json(newVerb);
+    const presentVerb = await PresentVerb.create(present);
+    const pastVerb = await PastVerb.create(past);
+    const verbs = [presentVerb, pastVerb];
+    res.status(200).json(verbs);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -22,13 +27,13 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const verbs = await Verb.find();
+    const presentVerbs = await PresentVerb.find();
+    const pastVerbs = await PastVerb.find();
+    const verbs = presentVerbs.concat(pastVerbs);
     res.status(200).json(verbs);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
-mutateVerb("trabajar", "werken");
 
 module.exports = router;

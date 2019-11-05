@@ -13,6 +13,6 @@ const verbSchema = new Schema({
   ellos: { type: String, required: true }
 });
 
-const Verb = mongoose.model("Verb", verbSchema);
+const Verb = mongoose.model("PastVerb", verbSchema);
 
 module.exports = Verb;

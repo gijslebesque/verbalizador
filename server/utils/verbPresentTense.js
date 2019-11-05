@@ -1,5 +1,5 @@
-module.exports = (verb, translation, tense) => {
-  const stem = verb.slice(0, verb.length - 2);
+module.exports = async (verb, translation) => {
+  if (!verb || !translation) return false;
   const endVerb = verb.slice(-2);
   let mutated;
   let mutatedAccent;
@@ -16,10 +16,12 @@ module.exports = (verb, translation, tense) => {
     mutatedAccent = "í";
   } else return false;
 
+  const stem = verb.slice(0, verb.length - 2);
+
   mutations = {
     verb,
     translation,
-    tense,
+    tense: "present",
     yo: `${stem}o`,
     tu: `${stem}${mutated}s`,
     el: `${stem}${mutated}`,
