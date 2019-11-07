@@ -13,7 +13,6 @@ export class Service {
   };
 
   getVerbs = () => {
-    debugger;
     return this.service.get("/verb");
   };
 }

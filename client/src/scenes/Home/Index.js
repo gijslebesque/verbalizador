@@ -12,6 +12,7 @@ export default function Index(props) {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await service.getVerbs();
+      debugger;
       setVerbs(data);
     };
     fetchData();
